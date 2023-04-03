@@ -7,9 +7,19 @@ class CarsRepository implements ICarRepository {
   createCar(data: CarDTO): Promise<ICar> {
     throw new Error("Method not implemented.");
   }
+  
+  getCarById(id: string): Promise<ICar | null> {
+    throw new Error("Method not implemented.");
+  }
+  
   listAllCars(searchParamater: string): Promise<ICar[]> {
     throw new Error("Method not implemented.");
   }
+
+  updateCar(data: CarDTO): Promise<ICar> {
+    throw new Error("Method not implemented.");
+  }
+
   deleteCar(id: string): Promise<void> {
     throw new Error("Method not implemented.");
   }
