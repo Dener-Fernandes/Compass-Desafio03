@@ -3,7 +3,9 @@ interface ICar {
   color: string;
   year: string;
   value_per_day: number;
-  acessories: string[];
+  acessories: [{
+    description: string
+  }];
   number_of_passenger: number;
 }
 

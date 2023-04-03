@@ -4,6 +4,16 @@ import { ICarRepository } from "../interfaces/ICarRepository";
 interface CarDTO extends ICar {}
 
 class CarsRepository implements ICarRepository {
+  private static INSTANCE: CarsRepository;
+
+  static getInstance(): CarsRepository {
+    if (!CarsRepository.INSTANCE) {
+      CarsRepository.INSTANCE = new CarsRepository();
+    }
+
+    return CarsRepository.INSTANCE;
+  }
+
   createCar(data: CarDTO): Promise<ICar> {
     throw new Error("Method not implemented.");
   }
