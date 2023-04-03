@@ -14,10 +14,10 @@ class CarService {
   constructor(private carsRepository: ICarRepository) {}
 
   async createCar(data: ICarDTO): Promise<CarResponse> {
-    const carCreated = await this.carsRepository.createCar(data);
+    const car = await this.carsRepository.createCar(data);
 
     return {
-      car: carCreated,
+      car,
       total: 0,
       limit: 0,
       offset: 0,

@@ -14,7 +14,7 @@ class CarController {
 
     console.log("Oi");
     
-    const carCreated = await carService.createCar({ 
+    const { car, total, limit, offset, offsets } = await carService.createCar({ 
       model, 
       color, 
       year, 
@@ -23,7 +23,7 @@ class CarController {
       number_of_passenger 
     });
 
-    return res.status(201).json({ carCreated });
+    return res.status(201).json({ car, total, limit, offset, offsets });
 
   }
 }
