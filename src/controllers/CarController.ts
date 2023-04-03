@@ -10,14 +10,16 @@ interface CarDTO extends ICar {}
 
 class CarController {
   async createCar(req: Request, res: Response): Promise<Response> {
-    const { model, color, year, value_per_day, acessories, number_of_passenger }: CarDTO = req.body;
+    const { model, color, year, value_per_day, accessories, number_of_passenger }: CarDTO = req.body;
+
+    console.log("Oi");
     
     const carCreated = await carService.createCar({ 
       model, 
       color, 
       year, 
       value_per_day, 
-      acessories, 
+      accessories, 
       number_of_passenger 
     });
 

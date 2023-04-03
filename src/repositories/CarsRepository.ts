@@ -1,5 +1,7 @@
+import { HydratedDocument } from "mongoose";
 import { ICar } from "../interfaces/ICar";
 import { ICarRepository } from "../interfaces/ICarRepository";
+import { Car } from "../models/Car";
 
 interface CarDTO extends ICar {}
 
@@ -14,19 +16,21 @@ class CarsRepository implements ICarRepository {
     return CarsRepository.INSTANCE;
   }
 
-  createCar(data: CarDTO): Promise<ICar> {
+  async createCar(data: CarDTO): Promise<HydratedDocument<ICar>> {
+    const createdCar = await Car.create(data);
+
+    return createdCar;
+  }
+  
+  getCarById(id: string): Promise<HydratedDocument<ICar> | null> {
     throw new Error("Method not implemented.");
   }
   
-  getCarById(id: string): Promise<ICar | null> {
-    throw new Error("Method not implemented.");
-  }
-  
-  listAllCars(searchParamater: string): Promise<ICar[]> {
+  listAllCars(searchParamater: string): Promise<HydratedDocument<ICar>[]> {
     throw new Error("Method not implemented.");
   }
 
-  updateCar(data: CarDTO): Promise<ICar> {
+  updateCar(data: CarDTO): Promise<HydratedDocument<ICar>> {
     throw new Error("Method not implemented.");
   }
 
