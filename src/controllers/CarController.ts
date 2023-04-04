@@ -12,7 +12,7 @@ class CarController {
   async createCar(req: Request, res: Response): Promise<Response> {
     const { model, color, year, value_per_day, accessories, number_of_passenger }: CreateCarDTO = req.body;
     
-    const { car, total, limit, offset, offsets } = await carService.createCar({ 
+    const car = await carService.createCar({ 
       model, 
       color, 
       year, 
@@ -21,7 +21,7 @@ class CarController {
       number_of_passenger 
     });
 
-    return res.status(201).json({ car, total, limit, offset, offsets });
+    return res.status(201).json(car);
 
   }
 }

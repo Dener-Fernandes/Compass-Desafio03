@@ -13,16 +13,10 @@ interface CarResponse {
 class CarService {
   constructor(private carsRepository: ICarRepository) {}
 
-  async createCar(data: CreateCarDTO): Promise<CarResponse> {
+  async createCar(data: CreateCarDTO): Promise<ICar> {
     const car = await this.carsRepository.createCar(data);
 
-    return {
-      car,
-      total: 0,
-      limit: 0,
-      offset: 0,
-      offsets: 0
-    };
+    return car;
   }
 }
 
