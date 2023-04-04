@@ -1,7 +1,7 @@
 import { ICarRepository } from "../interfaces/ICarRepository";
 import { ICar } from "../interfaces/ICar";
 
-interface ICarDTO extends ICar {}
+interface CreateCarDTO extends ICar {}
 interface CarResponse {
   car: ICar;
   total: number;
@@ -13,7 +13,7 @@ interface CarResponse {
 class CarService {
   constructor(private carsRepository: ICarRepository) {}
 
-  async createCar(data: ICarDTO): Promise<CarResponse> {
+  async createCar(data: CreateCarDTO): Promise<CarResponse> {
     const car = await this.carsRepository.createCar(data);
 
     return {

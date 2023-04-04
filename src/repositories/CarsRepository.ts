@@ -3,7 +3,7 @@ import { ICar } from "../interfaces/ICar";
 import { ICarRepository } from "../interfaces/ICarRepository";
 import { Car } from "../models/Car";
 
-interface CarDTO extends ICar {}
+interface CreateCarDTO extends ICar {}
 
 class CarsRepository implements ICarRepository {
   private static INSTANCE: CarsRepository;
@@ -16,7 +16,7 @@ class CarsRepository implements ICarRepository {
     return CarsRepository.INSTANCE;
   }
 
-  async createCar(data: CarDTO): Promise<HydratedDocument<ICar>> {
+  async createCar(data: CreateCarDTO): Promise<HydratedDocument<ICar>> {
     const createdCar = await Car.create(data);
 
     return createdCar;
@@ -30,7 +30,7 @@ class CarsRepository implements ICarRepository {
     throw new Error("Method not implemented.");
   }
 
-  updateCar(data: CarDTO): Promise<HydratedDocument<ICar>> {
+  updateCar(data: CreateCarDTO): Promise<HydratedDocument<ICar>> {
     throw new Error("Method not implemented.");
   }
 

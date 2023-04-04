@@ -1,13 +1,13 @@
 import { HydratedDocument } from "mongoose";
 import { ICar } from "./ICar"
 
-interface CarDTO extends ICar {}
+interface CreateCarDTO extends ICar {}
 
 interface ICarRepository {
-  createCar(data: CarDTO): Promise<HydratedDocument<ICar>>;
+  createCar(data: CreateCarDTO): Promise<HydratedDocument<ICar>>;
   getCarById(id: string): Promise<HydratedDocument<ICar> | null>;
   listAllCars(searchParamater: string): Promise<HydratedDocument<ICar>[]>;
-  updateCar(data: CarDTO): Promise<HydratedDocument<ICar>>;
+  updateCar(data: CreateCarDTO): Promise<HydratedDocument<ICar>>;
   deleteCar(id: string): Promise<void>;
 }
 
