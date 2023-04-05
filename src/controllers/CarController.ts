@@ -24,7 +24,7 @@ class CarController {
     return res.status(201).json(car);
   }
 
-  async deleteCarById(req: Request, res: Response) {
+  async deleteCarById(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
 
     await carService.deleteCarById(id);

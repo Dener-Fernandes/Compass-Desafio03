@@ -29,7 +29,7 @@ class CarService {
     const isCarDeleted = await this.carsRepository.deleteCarById(id);
 
     if (!isCarDeleted) {
-      throw new AppError("Event not found", 400);
+      throw new AppError("Event not found", 404);
     }
 
     return;
