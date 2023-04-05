@@ -26,16 +26,20 @@ class CarsRepository implements ICarRepository {
     throw new Error("Method not implemented.");
   }
   
-  listAllCars(searchParamater: string): Promise<HydratedDocument<ICar>[]> {
-    throw new Error("Method not implemented.");
+  async listAllCars(searchParamater: string): Promise<HydratedDocument<ICar>[]> {
+    const cars = await Car.find();
+
+    return cars;
   }
 
   updateCar(data: CreateCarDTO): Promise<HydratedDocument<ICar>> {
     throw new Error("Method not implemented.");
   }
 
-  deleteCar(id: string): Promise<void> {
-    throw new Error("Method not implemented.");
+  async deleteCarById(id: string): Promise<number> {
+    const { deletedCount } = await Car.deleteOne({ _id: id });
+
+    return deletedCount;
   }
   
 }

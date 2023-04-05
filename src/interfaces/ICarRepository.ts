@@ -8,7 +8,7 @@ interface ICarRepository {
   getCarById(id: string): Promise<HydratedDocument<ICar> | null>;
   listAllCars(searchParamater: string): Promise<HydratedDocument<ICar>[]>;
   updateCar(data: CreateCarDTO): Promise<HydratedDocument<ICar>>;
-  deleteCar(id: string): Promise<void>;
+  deleteCarById(id: string): Promise<number>;
 }
 
 export { ICarRepository }
