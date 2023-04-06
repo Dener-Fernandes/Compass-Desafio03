@@ -10,18 +10,70 @@ interface CreateCarDTO extends ICar {}
 
 class CarController {
   async createCar(req: Request, res: Response): Promise<Response> {
-    const { model, color, year, value_per_day, accessories, number_of_passenger }: CreateCarDTO = req.body;
+    const data: CreateCarDTO = req.body;
     
-    const car = await carService.createCar({ 
+    const {  
       model, 
       color, 
       year, 
       value_per_day, 
       accessories, 
-      number_of_passenger 
-    });
+      number_of_passengers  
+    } = await carService.createCar(data);
 
-    return res.status(201).json(car);
+    return res.status(201).json({ 
+      model, 
+      color, 
+      year, 
+      value_per_day, 
+      accessories, 
+      number_of_passengers 
+    });
+  }
+
+  async getCarById(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+
+    const { 
+      model, 
+      color, 
+      year, 
+      value_per_day, 
+      accessories, 
+      number_of_passengers
+     } = await carService.getCarById(id);
+
+    return res.status(200).json({
+      model, 
+      color, 
+      year, 
+      value_per_day, 
+      accessories, 
+      number_of_passengers
+    });
+  }
+
+  async updateCarById(req: Request, res: Response): Promise<Response>{
+    const { id } = req.params;
+    const data: CreateCarDTO = req.body;
+
+    const {
+      model, 
+      color, 
+      year, 
+      value_per_day, 
+      accessories, 
+      number_of_passengers 
+    } = await carService.updateCarById(id, data);
+
+    return res.status(200).json({
+      model, 
+      color, 
+      year, 
+      value_per_day, 
+      accessories, 
+      number_of_passengers 
+    });
   }
 
   async deleteCarById(req: Request, res: Response): Promise<Response> {

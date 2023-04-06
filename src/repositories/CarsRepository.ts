@@ -22,8 +22,10 @@ class CarsRepository implements ICarRepository {
     return createdCar;
   }
   
-  getCarById(id: string): Promise<HydratedDocument<ICar> | null> {
-    throw new Error("Method not implemented.");
+  async getCarById(id: string): Promise<HydratedDocument<ICar> | null> {
+    const car = await Car.findById(id);
+
+    return car;
   }
   
   async listAllCars(searchParamater: string): Promise<HydratedDocument<ICar>[]> {
@@ -32,8 +34,10 @@ class CarsRepository implements ICarRepository {
     return cars;
   }
 
-  updateCar(data: CreateCarDTO): Promise<HydratedDocument<ICar>> {
-    throw new Error("Method not implemented.");
+  async updateCarById(id: string, data: CreateCarDTO): Promise<HydratedDocument<ICar> | null> {
+    const car = await Car.findByIdAndUpdate(id, data, { new: true });
+
+    return car;
   }
 
   async deleteCarById(id: string): Promise<number> {

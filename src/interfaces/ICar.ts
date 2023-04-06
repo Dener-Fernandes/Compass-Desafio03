@@ -1,3 +1,5 @@
+import { Schema } from "mongoose";
+
 interface ICar {
   model: string;
   color: string;
@@ -6,7 +8,7 @@ interface ICar {
   accessories: [{
     description: string
   }];
-  number_of_passenger: number;
+  number_of_passengers: number;
 }
 
 export { ICar }

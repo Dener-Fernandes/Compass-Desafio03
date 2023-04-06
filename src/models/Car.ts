@@ -19,7 +19,7 @@ const carSchema = new Schema<ICar>({
       type: "String"
     }
   }],
-  number_of_passenger: {
+  number_of_passengers: {
     type: "Number"
   }
 });
