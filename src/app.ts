@@ -23,7 +23,6 @@ connect(dataBase).then(() => console.log("DB connection successful!")).catch((er
   console.log("Could not connect to database");
 });
 
-
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   if (error instanceof AppError) {
     return res.status(error.statusCode).json({ message: error.message });
@@ -41,7 +40,7 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   if (error.name === "MongoServerError") {
     const isEmailDuplicated = error.message.includes("email");
     const isCPFDuplicated = error.message.includes("cpf");
-    
+
     if (isEmailDuplicated) {
       return res.status(400).json({ message: "Email already exists"});
     }

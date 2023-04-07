@@ -27,8 +27,10 @@ class UsersRepository implements IUsersRepository {
     return user;
   }
 
-  async listAllUsers(): Promise<HydratedDocument<IUser[]>> {
-    throw new Error("Method not implemented.");
+  async listAllUsers(query: Object, skip: number, limit: number): Promise<HydratedDocument<IUser>[]> {
+    const usersList = await User.find(query).skip(skip).limit(limit);
+
+    return usersList;
   }
 
   async updateUser(id: string, data: IUser): Promise<HydratedDocument<IUser> | null> {

@@ -40,7 +40,7 @@ const userSchema = new Schema<IUser>({
   uf: {
     type: "String"
   }
-});
+}, { versionKey: false });
 
 const User = model<IUser>("User", userSchema);
 

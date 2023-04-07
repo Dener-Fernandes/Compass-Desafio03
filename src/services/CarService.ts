@@ -10,7 +10,7 @@ interface ICarResponse {
   total: number;
   limit: number;
   offset: number;
-  offsets: number;
+  offsets: number[];
 }
 
 class CarService {
@@ -44,17 +44,20 @@ class CarService {
     const page = pageNumber ? pageNumber * 1 : 1;
     const limit = limitNumber ? limitNumber * 1 : 100;
     const skip = (page - 1) * limit;
-
-    console.log(skip);
-
+    
     const carsList = await this.carsRepository.listAllCars(query, skip, limit);
+    const total = carsList.length;
+
+    const offsets = Array(Math.ceil(total / limit))
+    .fill(0)
+    .map((_, i) => i * limit);
 
     return {
       car: carsList,
-      total: carsList.length,
+      total: total,
       limit: limit,
-      offset: page,
-      offsets: skip
+      offset: skip,
+      offsets: offsets
     };
   }
   

@@ -22,7 +22,7 @@ const carSchema = new Schema<ICar>({
   number_of_passengers: {
     type: "Number"
   }
-});
+}, { versionKey: false });
 
 const Car = model<ICar>("Car", carSchema);
 
