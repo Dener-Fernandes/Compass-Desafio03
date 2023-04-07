@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { ICar } from "../interfaces/ICar";
 import { CarsRepository } from "../repositories/CarsRepository";
 import { CarService } from "../services/CarService";
-
+import { ISearchQuery } from "../interfaces/ISearchQuery";
 const carsRepository = CarsRepository.getInstance();
 const carService = new CarService(carsRepository);
 
@@ -51,6 +51,21 @@ class CarController {
       accessories, 
       number_of_passengers
     });
+  }
+
+  async listAllCars(req: Request, res: Response) { 
+    const { model, color, year, value_per_day, accessories, number_of_passengers, page, limit }: ISearchQuery = req.query;
+
+    const carsList =  await carService.listAllCars({ 
+      model, 
+      color, 
+      year, 
+      value_per_day, 
+      accessories, 
+      number_of_passengers 
+    }, page, limit );
+    
+    return res.status(200).json(carsList);
   }
 
   async updateCarById(req: Request, res: Response): Promise<Response>{

@@ -1,12 +1,12 @@
 import { ICarRepository } from "../interfaces/ICarRepository";
 import { ICar } from "../interfaces/ICar";
 import { AppError } from "../errors/AppError";
-import mongoose from "mongoose";
+import { ISearchQuery } from "../interfaces/ISearchQuery";
 
 interface CreateCarDTO extends ICar {}
 
-interface CarResponse {
-  car: ICar;
+interface ICarResponse {
+  car: ICar[];
   total: number;
   limit: number;
   offset: number;
@@ -32,15 +32,33 @@ class CarService {
     return car;
   }
 
-  async listAllCars({model, color, year, value_per_day, accessories, number_of_passengers }: CreateCarDTO) {
-    
-  }
+  async listAllCars(data: ISearchQuery, pageNumber?: number, limitNumber?: number): Promise<ICarResponse> {
+    let query: Record<string, string> = {}
 
-  async updateCarById(id: string, data: CreateCarDTO): Promise<ICar> {
-    if (!mongoose.isValidObjectId(id)) {
-      throw new AppError("Invalid id", 400);
+    for (let [key, value] of Object.entries(data)) {
+      if (value) {
+        query[key] = value; 
+      }
     }
+
+    const page = pageNumber ? pageNumber * 1 : 1;
+    const limit = limitNumber ? limitNumber * 1 : 100;
+    const skip = (page - 1) * limit;
+
+    console.log(skip);
+
+    const carsList = await this.carsRepository.listAllCars(query, skip, limit);
+
+    return {
+      car: carsList,
+      total: carsList.length,
+      limit: limit,
+      offset: page,
+      offsets: skip
+    };
+  }
   
+  async updateCarById(id: string, data: CreateCarDTO): Promise<ICar> {
     const car = await this.carsRepository.updateCarById(id, data);
 
     if (!car) {

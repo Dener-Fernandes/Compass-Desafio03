@@ -9,11 +9,9 @@ const carRoutes = express.Router();
 const carController = new CarController();
 
 carRoutes.post("/", carDataValidator, carController.createCar);
-
 carRoutes.get("/:id", idValidator, carController.getCarById);
-
-carRoutes.put("/:id", carDataValidator, carController.updateCarById);
-
+carRoutes.get("/", carController.listAllCars);
+carRoutes.put("/:id", carDataValidator, idValidator, carController.updateCarById);
 carRoutes.delete("/:id", idValidator, carController.deleteCarById);
 
 export { carRoutes }

@@ -28,8 +28,8 @@ class CarsRepository implements ICarRepository {
     return car;
   }
   
-  async listAllCars(searchParamater: string): Promise<HydratedDocument<ICar>[]> {
-    const cars = await Car.find();
+  async listAllCars(query: Object, skip: number, limit: number): Promise<HydratedDocument<ICar>[]> {
+    const cars = await Car.find(query).skip(skip).limit(limit);
 
     return cars;
   }

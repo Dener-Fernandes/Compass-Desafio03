@@ -1,5 +1,3 @@
-import { Schema } from "mongoose";
-
 interface ICar {
   model: string;
   color: string;
