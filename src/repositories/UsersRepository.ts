@@ -1,10 +1,10 @@
 import { HydratedDocument} from "mongoose";
 import { CreateUserDTO } from "../interfaces/CreateUserDTO";
 import { IUser } from "../interfaces/IUser";
-import { IUserRepository } from "../interfaces/IUserRepository";
+import { IUsersRepository } from "../interfaces/IUsersRepository";
 import { User } from "../models/User";
 
-class UsersRepository implements IUserRepository {
+class UsersRepository implements IUsersRepository {
   private static INSTANCE: UsersRepository;
 
   static getInstance(): UsersRepository {

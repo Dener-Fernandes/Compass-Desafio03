@@ -6,13 +6,15 @@ const userSchema = new Schema<IUser>({
     type: "String"
   },
   cpf: {
-    type: "String"
+    type: "String",
+    unique: true,
   },
   birth: {
     type: "String"
   },
   email: {
-    type: "String"
+    type: "String",
+    unique: true,
   },
   password: {
     type: "String"

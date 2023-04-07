@@ -2,7 +2,7 @@ import { HydratedDocument } from "mongoose"
 import { IUser } from "./IUser"
 import { CreateUserDTO } from "./CreateUserDTO";
 
-interface IUserRepository {
+interface IUsersRepository {
   createUser(data: CreateUserDTO): Promise<HydratedDocument<IUser>>;
   getUserById(id: string): Promise<HydratedDocument<IUser> | null>;
   listAllUsers(): Promise<HydratedDocument<IUser[]>>;
@@ -10,4 +10,4 @@ interface IUserRepository {
   deleteById(id: string): Promise<number>;
 }
 
-export { IUserRepository }
+export { IUsersRepository }

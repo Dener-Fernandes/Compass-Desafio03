@@ -38,6 +38,19 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
     return res.status(400).json({ message: error.message });
   }
 
+  if (error.name === "MongoServerError") {
+    const isEmailDuplicated = error.message.includes("email");
+    const isCPFDuplicated = error.message.includes("cpf");
+    
+    if (isEmailDuplicated) {
+      return res.status(400).json({ message: "Email already exists"});
+    }
+
+    if (isCPFDuplicated) {
+      return res.status(400).json({ message: "CPF already exists"});
+    }
+  }
+
   return res.status(500).json({ message: error.message });
 })
 
