@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import { IUser } from "../interfaces/IUser";
+import bcryptjs from "bcryptjs";
 
 const userSchema = new Schema<IUser>({
   name: {
@@ -41,6 +42,16 @@ const userSchema = new Schema<IUser>({
     type: "String"
   }
 }, { versionKey: false });
+
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    return next();
+  }
+
+  this.password = await bcryptjs.hash(this.password, 12);
+  
+  next();
+});
 
 const User = model<IUser>("User", userSchema);
 

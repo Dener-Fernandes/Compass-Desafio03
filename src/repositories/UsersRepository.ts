@@ -1,4 +1,4 @@
-import { HydratedDocument} from "mongoose";
+import { Document, HydratedDocument, Types} from "mongoose";
 import { CreateUserDTO } from "../interfaces/CreateUserDTO";
 import { IUser } from "../interfaces/IUser";
 import { IUsersRepository } from "../interfaces/IUsersRepository";
@@ -23,6 +23,12 @@ class UsersRepository implements IUsersRepository {
 
   async getUserById(id: string): Promise<HydratedDocument<IUser> | null> {
     const user = await User.findById(id);
+
+    return user;
+  }
+
+  getUserByEmail(email: string): Promise<HydratedDocument<IUser> | null> {
+    const user = User.findOne({ email: email });
 
     return user;
   }
