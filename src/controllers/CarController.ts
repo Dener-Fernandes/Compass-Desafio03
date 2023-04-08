@@ -3,6 +3,7 @@ import { ICar } from "../interfaces/ICar";
 import { CarsRepository } from "../repositories/CarsRepository";
 import { CarService } from "../services/CarService";
 import { ISearchQuery } from "../interfaces/ISearchQuery";
+
 const carsRepository = CarsRepository.getInstance();
 const carService = new CarService(carsRepository);
 

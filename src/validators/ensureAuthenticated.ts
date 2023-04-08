@@ -3,7 +3,7 @@ import auth from "../config/auth";
 import { verify } from "jsonwebtoken";
 
 interface IPayload {
-  subject: string;
+  sub: string;
 }
 
 interface IRequest extends Request {
@@ -21,12 +21,12 @@ async function ensureAuthenticated(req: IRequest, res: Response, next: NextFunct
 
   const [, token] = authHeader.split(" ");
 
-  const { subject: user_id } = verify(token, auth.secret_token) as IPayload;
+  const { sub: user_id } = verify(token, auth.secret_token) as IPayload;
 
   req.user = {
     id: user_id,
   }
-
+  
   return next();
 }
 

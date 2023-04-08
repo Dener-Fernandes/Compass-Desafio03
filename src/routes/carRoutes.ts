@@ -1,4 +1,4 @@
-import express, { NextFunction, RequestHandler } from "express";
+import express from "express";
 
 import { CarController } from "../controllers/CarController";
 import { carDataValidator } from "../validators/carDataValidator";

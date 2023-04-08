@@ -1,4 +1,7 @@
+import { Schema } from "mongoose";
+
 interface ICar {
+  id?: Schema.Types.ObjectId;
   model: string;
   color: string;
   year: string;

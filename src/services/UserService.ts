@@ -88,8 +88,6 @@ class UserService {
   }
 
   async updateUserById(id: string, data:CreateUserDTO): Promise<IUser> {
-    data.qualified = Boolean(data.qualified);
-
     const addressInfo = await api.get<IRequest>(`/${data.cep}/json`);
 
     if (addressInfo.status !== 200) {

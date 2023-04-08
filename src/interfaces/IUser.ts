@@ -1,4 +1,7 @@
+import { Schema } from "mongoose";
+
 interface IUser {
+  id?: Schema.Types.ObjectId;
   name: string;
   cpf: string;
   birth: string;
