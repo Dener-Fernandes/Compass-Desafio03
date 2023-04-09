@@ -18,7 +18,7 @@ interface IUserResponse {
   total: number;
   limit: number;
   offset: number;
-  offsets: number[];
+  offsets: number;
 }
 
 class UserService {
@@ -74,9 +74,7 @@ class UserService {
 
     const usersList = await this.usersRepository.listAllUsers(query, skip, limit)
     const total = usersList.length;
-    const offsets = Array(Math.ceil(total / limit))
-    .fill(0)
-    .map((_, i) => i * limit);
+    const offsets = (total / limit) ? 1 : total / limit;
 
     return {
       user: usersList,

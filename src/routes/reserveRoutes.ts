@@ -11,6 +11,7 @@ const reserveController = new ReserveController();
 reserveRoutes.post("/", ensureAuthenticated, reserveDataValidator, reserveController.createReserve);
 reserveRoutes.get("/", ensureAuthenticated, reserveController.listAllReserves);
 reserveRoutes.get("/:id", ensureAuthenticated, idValidator, reserveController.getReserveById);
+reserveRoutes.put("/:id", ensureAuthenticated, idValidator, reserveController.updateReserve);
 reserveRoutes.delete("/:id", ensureAuthenticated, idValidator, reserveController.deleteReserveById);
 
 export { reserveRoutes }

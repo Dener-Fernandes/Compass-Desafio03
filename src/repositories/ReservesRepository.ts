@@ -28,8 +28,8 @@ class ReservesRepository implements IReservesRepository {
     return reserve;
   }
 
-  async listAllReserves(): Promise<HydratedDocument<IReserve>[]> {
-    const reservesList = await Reserve.find();
+  async listAllReserves(query: Object, skip: number, limit: number): Promise<HydratedDocument<IReserve>[]> {
+    const reservesList = await Reserve.find(query).skip(skip).limit(limit);
 
     return reservesList;
   }

@@ -7,6 +7,7 @@ import { CarsRepository } from "../repositories/CarsRepository";
 import { CarService } from "../services/CarService";
 import { UsersRepository } from "../repositories/UsersRepository";
 import { UserService } from "../services/UserService";
+import { ISearchReserveQuery } from "../interfaces/ISearchReserveQuery";
 
 interface IRequest extends Request {
   user?: {
@@ -42,7 +43,14 @@ class ReserveController {
   }
 
   async listAllReserves(req: Request, res: Response): Promise<Response> {
-    const reservesList = await reserveService.listAllReserves();
+    const { id_user, id_car, start_date, end_date, final_value, page, limit }: ISearchReserveQuery = req.query;
+    const reservesList = await reserveService.listAllReserves({ 
+      id_user, 
+      id_car, 
+      start_date, 
+      end_date, 
+      final_value 
+    }, page, limit);
 
     return res.status(200).json({ reserves: reservesList });
   }

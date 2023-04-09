@@ -10,7 +10,7 @@ interface ICarResponse {
   total: number;
   limit: number;
   offset: number;
-  offsets: number[];
+  offsets: number;
 }
 
 class CarService {
@@ -47,10 +47,7 @@ class CarService {
     
     const carsList = await this.carsRepository.listAllCars(query, skip, limit);
     const total = carsList.length;
-
-    const offsets = Array(Math.ceil(total / limit))
-    .fill(0)
-    .map((_, i) => i * limit);
+    const offsets = (total / limit) ? 1 : total / limit;
 
     return {
       car: carsList,
