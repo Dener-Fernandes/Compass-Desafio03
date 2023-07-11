@@ -1,7 +1,8 @@
-import { ICarRepository } from "../interfaces/ICarRepository";
+// import { ICarRepository } from "../interfaces/ICarRepository";
 import { ICar } from "../interfaces/ICar";
 import { AppError } from "../errors/AppError";
 import { ISearchQuery } from "../interfaces/ISearchQuery";
+import { ICarRepository } from "../interfaces";
 
 interface CreateCarDTO extends ICar {}
 
@@ -17,66 +18,66 @@ class CarService {
   constructor(private carsRepository: ICarRepository) {}
 
   async createCar(data: CreateCarDTO): Promise<ICar> {
-    const car = await this.carsRepository.createCar(data);
+    const car = await this.carsRepository.create(data);
 
     return car;
   }
 
-  async getCarById(id: string): Promise<ICar> {
-    const car = await this.carsRepository.getCarById(id);
+  // async getCarById(id: string): Promise<ICar> {
+  //   const car = await this.carsRepository.getCarById(id);
 
-    if (!car) {
-      throw new AppError("Id not found", 404);
-    }
+  //   if (!car) {
+  //     throw new AppError("Id not found", 404);
+  //   }
 
-    return car;
-  }
+  //   return car;
+  // }
 
-  async listAllCars(data: ISearchQuery, pageNumber?: number, limitNumber?: number): Promise<ICarResponse> {
-    let query: Record<string, string> = {}
+  // async listAllCars(data: ISearchQuery, pageNumber?: number, limitNumber?: number): Promise<ICarResponse> {
+  //   let query: Record<string, string> = {}
 
-    for (let [key, value] of Object.entries(data)) {
-      if (value) {
-        query[key] = value; 
-      }
-    }
+  //   for (let [key, value] of Object.entries(data)) {
+  //     if (value) {
+  //       query[key] = value;
+  //     }
+  //   }
 
-    const page = pageNumber ? pageNumber * 1 : 1;
-    const limit = limitNumber ? limitNumber * 1 : 100;
-    const skip = (page - 1) * limit;
-    
-    const carsList = await this.carsRepository.listAllCars(query, skip, limit);
-    const total = carsList.length;
-    const offsets = (total / limit) ? 1 : total / limit;
+  //   const page = pageNumber ? pageNumber * 1 : 1;
+  //   const limit = limitNumber ? limitNumber * 1 : 100;
+  //   const skip = (page - 1) * limit;
 
-    return {
-      car: carsList,
-      total: total,
-      limit: limit,
-      offset: skip,
-      offsets: offsets
-    };
-  }
-  
-  async updateCarById(id: string, data: CreateCarDTO): Promise<ICar> {
-    const car = await this.carsRepository.updateCarById(id, data);
+  //   const carsList = await this.carsRepository.listAllCars(query, skip, limit);
+  //   const total = carsList.length;
+  //   const offsets = (total / limit) ? 1 : total / limit;
 
-    if (!car) {
-      throw new AppError("Id not found", 404);
-    }
+  //   return {
+  //     car: carsList,
+  //     total: total,
+  //     limit: limit,
+  //     offset: skip,
+  //     offsets: offsets
+  //   };
+  // }
 
-    return car;
-  }
+  // async updateCarById(id: string, data: CreateCarDTO): Promise<ICar> {
+  //   const car = await this.carsRepository.updateCarById(id, data);
 
-  async deleteCarById(id: string): Promise<void> {
-    const isCarDeleted = await this.carsRepository.deleteCarById(id);
+  //   if (!car) {
+  //     throw new AppError("Id not found", 404);
+  //   }
 
-    if (!isCarDeleted) {
-      throw new AppError("Event not found", 404);
-    }
+  //   return car;
+  // }
 
-    return;
-  }
+  // async deleteCarById(id: string): Promise<void> {
+  //   const isCarDeleted = await this.carsRepository.deleteCarById(id);
+
+  //   if (!isCarDeleted) {
+  //     throw new AppError("Event not found", 404);
+  //   }
+
+  //   return;
+  // }
 }
 
-export { CarService }
+export { CarService };

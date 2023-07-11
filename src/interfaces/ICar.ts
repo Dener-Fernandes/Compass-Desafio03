@@ -6,10 +6,8 @@ interface ICar {
   color: string;
   year: string;
   value_per_day: number;
-  accessories: [{
-    description: string
-  }];
+  accessories: { description: string }[];
   number_of_passengers: number;
 }
 
-export { ICar }
+export { ICar };

@@ -1,0 +1,3 @@
+interface IBaseModel {}
+
+export { IBaseModel };
