@@ -59,25 +59,25 @@ class CarService {
   //   };
   // }
 
-  // async updateCarById(id: string, data: CreateCarDTO): Promise<ICar> {
-  //   const car = await this.carsRepository.updateCarById(id, data);
+  async updateCarById(id: string, data: CreateCarDTO): Promise<ICar> {
+    const car = await this.carsRepository.update(id, data);
 
-  //   if (!car) {
-  //     throw new AppError("Id not found", 404);
-  //   }
+    if (!car) {
+      throw new AppError("Car not found", 404);
+    }
 
-  //   return car;
-  // }
+    return car;
+  }
 
-  // async deleteCarById(id: string): Promise<void> {
-  //   const isCarDeleted = await this.carsRepository.deleteCarById(id);
+  async deleteCarById(id: string): Promise<void> {
+    const isCarDeleted = await this.carsRepository.delete(id);
 
-  //   if (!isCarDeleted) {
-  //     throw new AppError("Event not found", 404);
-  //   }
+    if (!isCarDeleted) {
+      throw new AppError("Car not found", 404);
+    }
 
-  //   return;
-  // }
+    return;
+  }
 }
 
 export { CarService };

@@ -21,6 +21,18 @@ abstract class DefaultMongoDBRepository<
     const foundCar = await this.model.findById(id);
     return foundCar?.toObject<IWithId<T> | undefined>();
   }
+
+  async update(id: unknown, data: T): Promise<IWithId<T> | undefined> {
+    const car = await this.model.findByIdAndUpdate(id, data, { new: true });
+
+    return car?.toObject<IWithId<T> | undefined>();
+  }
+
+  async delete(id: string): Promise<FilterOptions> {
+    const { deletedCount } = await this.model.deleteOne({ _id: id });
+
+    return deletedCount;
+  }
 }
 
 export { DefaultMongoDBRepository };

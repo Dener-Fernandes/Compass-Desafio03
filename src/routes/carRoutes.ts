@@ -12,7 +12,12 @@ const carController = new CarController();
 carRoutes.post("/", carDataValidator, carController.createCar);
 carRoutes.get("/:id", idValidator, carController.getCarById);
 // carRoutes.get("/", ensureAuthenticated, carController.listAllCars);
-// carRoutes.put("/:id", ensureAuthenticated, carDataValidator, idValidator, carController.updateCarById);
-// carRoutes.delete("/:id", ensureAuthenticated, idValidator, carController.deleteCarById);
+carRoutes.put(
+  "/:id",
+  carDataValidator,
+  idValidator,
+  carController.updateCarById,
+);
+carRoutes.delete("/:id", idValidator, carController.deleteCarById);
 
 export { carRoutes };

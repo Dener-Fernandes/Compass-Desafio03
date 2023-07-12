@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { ICar } from "../interfaces/ICar";
 import { CarService } from "../services/CarService";
 import { MongoDBCarRepository } from "../repositories/MongoDBCarRepository";
-import { FilterOptions } from "../interfaces";
 
 const carService = new CarService(new MongoDBCarRepository());
 
@@ -54,36 +53,22 @@ class CarController {
   //   return res.status(200).json(carsList);
   // }
 
-  // async updateCarById(req: Request, res: Response): Promise<Response>{
-  //   const { id } = req.params;
-  //   const data: CreateCarDTO = req.body;
+  async updateCarById(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+    const data: CreateCarDTO = req.body;
 
-  //   const {
-  //     model,
-  //     color,
-  //     year,
-  //     value_per_day,
-  //     accessories,
-  //     number_of_passengers
-  //   } = await carService.updateCarById(id, data);
+    const result = await carService.updateCarById(id, data);
 
-  //   return res.status(200).json({
-  //     model,
-  //     color,
-  //     year,
-  //     value_per_day,
-  //     accessories,
-  //     number_of_passengers
-  //   });
-  // }
+    return res.status(200).json(result);
+  }
 
-  // async deleteCarById(req: Request, res: Response): Promise<Response> {
-  //   const { id } = req.params;
+  async deleteCarById(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
 
-  //   await carService.deleteCarById(id);
+    await carService.deleteCarById(id);
 
-  //   return res.status(204).send();
-  // }
+    return res.status(204).send();
+  }
 }
 
 export { CarController };
