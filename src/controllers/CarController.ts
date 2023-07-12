@@ -1,11 +1,9 @@
 import { Request, Response } from "express";
 import { ICar } from "../interfaces/ICar";
-import { CarsRepository } from "../repositories/CarsRepository";
 import { CarService } from "../services/CarService";
-import { ISearchQuery } from "../interfaces/ISearchQuery";
 import { MongoDBCarRepository } from "../repositories/MongoDBCarRepository";
+import { FilterOptions } from "../interfaces";
 
-// const carsRepository = CarsRepository.getInstance();
 const carService = new CarService(new MongoDBCarRepository());
 
 interface CreateCarDTO extends ICar {}
@@ -19,27 +17,27 @@ class CarController {
     return res.status(201).json(result);
   }
 
-  // async getCarById(req: Request, res: Response): Promise<Response> {
-  //   const { id } = req.params;
+  async getCarById(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
 
-  //   const {
-  //     model,
-  //     color,
-  //     year,
-  //     value_per_day,
-  //     accessories,
-  //     number_of_passengers
-  //    } = await carService.getCarById(id);
+    const {
+      model,
+      color,
+      year,
+      value_per_day,
+      accessories,
+      number_of_passengers,
+    } = await carService.getCarById(id);
 
-  //   return res.status(200).json({
-  //     model,
-  //     color,
-  //     year,
-  //     value_per_day,
-  //     accessories,
-  //     number_of_passengers
-  //   });
-  // }
+    return res.status(200).json({
+      model,
+      color,
+      year,
+      value_per_day,
+      accessories,
+      number_of_passengers,
+    });
+  }
 
   // async listAllCars(req: Request, res: Response) {
   //   const { model, color, year, value_per_day, accessories, number_of_passengers, page, limit }: ISearchQuery = req.query;

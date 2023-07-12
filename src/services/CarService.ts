@@ -2,7 +2,7 @@
 import { ICar } from "../interfaces/ICar";
 import { AppError } from "../errors/AppError";
 import { ISearchQuery } from "../interfaces/ISearchQuery";
-import { ICarRepository } from "../interfaces";
+import { FilterOptions, ICarRepository } from "../interfaces";
 
 interface CreateCarDTO extends ICar {}
 
@@ -23,15 +23,15 @@ class CarService {
     return car;
   }
 
-  // async getCarById(id: string): Promise<ICar> {
-  //   const car = await this.carsRepository.getCarById(id);
+  async getCarById(id: FilterOptions): Promise<ICar> {
+    const car = await this.carsRepository.getById(id);
 
-  //   if (!car) {
-  //     throw new AppError("Id not found", 404);
-  //   }
+    if (!car) {
+      throw new AppError("Car not found", 404);
+    }
 
-  //   return car;
-  // }
+    return car;
+  }
 
   // async listAllCars(data: ISearchQuery, pageNumber?: number, limitNumber?: number): Promise<ICarResponse> {
   //   let query: Record<string, string> = {}
