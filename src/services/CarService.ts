@@ -7,11 +7,12 @@ import { FilterOptions, ICarRepository } from "../interfaces";
 interface CreateCarDTO extends ICar {}
 
 interface ICarResponse {
-  car: ICar[];
+  cars: ICar[];
   total: number;
+  nextUrl: string | null;
+  previousUrl: string | null;
   limit: number;
   offset: number;
-  offsets: number;
 }
 
 class CarService {
@@ -33,31 +34,56 @@ class CarService {
     return car;
   }
 
-  // async listAllCars(data: ISearchQuery, pageNumber?: number, limitNumber?: number): Promise<ICarResponse> {
-  //   let query: Record<string, string> = {}
+  async listAllCars(
+    data: ISearchQuery,
+    offset?: number,
+    limit?: number,
+    currentUrl?: string,
+  ): Promise<ICarResponse> {
+    let query: Record<string, string> = {};
+    let vetorQuery = [];
 
-  //   for (let [key, value] of Object.entries(data)) {
-  //     if (value) {
-  //       query[key] = value;
-  //     }
-  //   }
+    for (let [key, value] of Object.entries(data)) {
+      if (value) {
+        vetorQuery.push({ [key]: value });
+      }
+    }
 
-  //   const page = pageNumber ? pageNumber * 1 : 1;
-  //   const limit = limitNumber ? limitNumber * 1 : 100;
-  //   const skip = (page - 1) * limit;
+    if (!limit) {
+      limit = 5 * 1;
+    }
 
-  //   const carsList = await this.carsRepository.listAllCars(query, skip, limit);
-  //   const total = carsList.length;
-  //   const offsets = (total / limit) ? 1 : total / limit;
+    if (!offset) {
+      offset = 0 * 1;
+    }
 
-  //   return {
-  //     car: carsList,
-  //     total: total,
-  //     limit: limit,
-  //     offset: skip,
-  //     offsets: offsets
-  //   };
-  // }
+    console.log(vetorQuery);
+
+    const carsList = await this.carsRepository.listAll(
+      vetorQuery,
+      offset,
+      limit,
+    );
+    const total = carsList.length;
+
+    const next = offset + limit;
+    const nextUrl =
+      next < total ? `${currentUrl}?limit=${limit}&offset=${next}` : null;
+
+    const previous = offset - limit < 0 ? null : offset - limit;
+    const previousUrl = previous
+      ? `${currentUrl}?limit=${limit}&offset=${previous}`
+      : null;
+
+    return {
+      cars: carsList,
+      total: total,
+      nextUrl: nextUrl,
+      previousUrl: previousUrl,
+      limit: limit,
+      offset: offset,
+    };
+  }
 
   async updateCarById(id: string, data: CreateCarDTO): Promise<ICar> {
     const car = await this.carsRepository.update(id, data);

@@ -1,7 +1,12 @@
 import { Model } from "mongoose";
 import { IBaseModel } from "../interfaces/IBaseModel";
 import { GenericRepository } from "./GenericRepository";
-import { FilterOptions, IWithId } from "../interfaces";
+import {
+  FilterOptions,
+  IWithId,
+  PaginationOption01,
+  PaginationOption02,
+} from "../interfaces";
 
 /* extends IBaseModel é mais uma questão de visibilidade. Serve apenas para falar ao TS
 que T extende uma interface. O código funciona sem esse extends. */
@@ -20,6 +25,19 @@ abstract class DefaultMongoDBRepository<
   async getById(id: FilterOptions): Promise<IWithId<T> | undefined> {
     const foundCar = await this.model.findById(id);
     return foundCar?.toObject<IWithId<T> | undefined>();
+  }
+
+  async listAll(
+    query: PaginationOption01,
+    offset: PaginationOption02,
+    limit: PaginationOption02,
+  ): Promise<IWithId<T>[]> {
+    const list = await this.model
+      .find({ $or: query })
+      .skip(offset)
+      .limit(limit);
+    const newList = list.map((item) => item.toObject<IWithId<T>>());
+    return newList;
   }
 
   async update(id: unknown, data: T): Promise<IWithId<T> | undefined> {

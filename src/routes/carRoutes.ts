@@ -11,7 +11,7 @@ const carController = new CarController();
 
 carRoutes.post("/", carDataValidator, carController.createCar);
 carRoutes.get("/:id", idValidator, carController.getCarById);
-// carRoutes.get("/", ensureAuthenticated, carController.listAllCars);
+carRoutes.get("/", carController.listAllCars);
 carRoutes.put(
   "/:id",
   carDataValidator,
