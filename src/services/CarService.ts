@@ -34,6 +34,7 @@ class CarService {
     return car;
   }
 
+  // Error in this method. Not counting all documents with the search queries. Also, it does not work if no search query is set.
   async listAllCars(
     data: ISearchQuery,
     offset?: number,
@@ -57,8 +58,6 @@ class CarService {
       offset = 0 * 1;
     }
 
-    console.log(vetorQuery);
-
     const carsList = await this.carsRepository.listAll(
       vetorQuery,
       offset,
@@ -74,6 +73,8 @@ class CarService {
     const previousUrl = previous
       ? `${currentUrl}?limit=${limit}&offset=${previous}`
       : null;
+
+    console.log(nextUrl);
 
     return {
       cars: carsList,

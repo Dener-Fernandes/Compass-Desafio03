@@ -1,7 +1,7 @@
 import { Schema } from "mongoose";
 
 interface ICar {
-  id?: Schema.Types.ObjectId | string;
+  _id?: Schema.Types.ObjectId | string;
   model: string;
   color: string;
   year: string;

@@ -3,8 +3,9 @@ import { ICar } from "../interfaces/ICar";
 import { CarService } from "../services/CarService";
 import { MongoDBCarRepository } from "../repositories/MongoDBCarRepository";
 import { ISearchQuery } from "../interfaces/ISearchQuery";
+import { Car } from "../models/Car";
 
-const carService = new CarService(new MongoDBCarRepository());
+const carService = new CarService(new MongoDBCarRepository(Car));
 
 interface CreateCarDTO extends ICar {}
 
