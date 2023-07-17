@@ -30,11 +30,16 @@ const carExpectedUpdate = {
   number_of_passengers: 4,
 };
 
+const valueReturnedWhenDeletedIsSuccessful = 1;
+
 describe("carRepository's unit test", () => {
-  beforeEach(() => {
+  beforeAll(() => {
     repository.create = jest.fn().mockReturnValueOnce(carExpected);
     repository.getById = jest.fn().mockReturnValueOnce(carExpected);
     repository.update = jest.fn().mockReturnValueOnce(carExpectedUpdate);
+    repository.delete = jest
+      .fn()
+      .mockReturnValueOnce(valueReturnedWhenDeletedIsSuccessful);
   });
 
   it("should be able to create a new car", async () => {
@@ -98,5 +103,13 @@ describe("carRepository's unit test", () => {
 
     expect(result?.model).toBe(car.model);
     expect(result?.year).toBe(car.year);
+  });
+
+  it("should be able to delete a car by id", async () => {
+    const carId = "123";
+
+    const result = await repository.delete(carId);
+
+    expect(result).toBe(1);
   });
 });
