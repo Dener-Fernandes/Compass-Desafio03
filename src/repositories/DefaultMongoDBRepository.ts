@@ -34,6 +34,7 @@ abstract class DefaultMongoDBRepository<
   ): Promise<IWithId<T>[]> {
     const list = await this.model
       .find({ $or: query })
+      .sort({ _id: -1 })
       .skip(offset)
       .limit(limit);
     const newList = list.map((item) => item.toObject<IWithId<T>>());
