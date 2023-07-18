@@ -15,6 +15,7 @@ abstract class GenericRepository<T> implements IBaseRepository<T> {
     limit: PaginationOption02,
   ): Promise<IWithId<T>[]>;
   abstract update(id: FilterOptions, data: T): Promise<IWithId<T> | undefined>;
+  abstract countItems(): Promise<FilterOptions>;
   abstract delete(id: FilterOptions): Promise<FilterOptions>;
 }
 

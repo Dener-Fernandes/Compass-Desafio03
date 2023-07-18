@@ -47,6 +47,10 @@ abstract class DefaultMongoDBRepository<
     return car?.toObject<IWithId<T> | undefined>();
   }
 
+  async countItems(): Promise<FilterOptions> {
+    return await this.model.countDocuments();
+  }
+
   async delete(id: string): Promise<FilterOptions> {
     const { deletedCount } = await this.model.deleteOne({ _id: id });
 

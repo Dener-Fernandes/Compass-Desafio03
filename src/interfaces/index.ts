@@ -16,6 +16,7 @@ interface IBaseRepository<T> {
     limit: PaginationOption02,
   ): Promise<IWithId<T>[]>;
   update(id: FilterOptions, data: T): Promise<IWithId<T> | undefined>;
+  countItems(): Promise<FilterOptions>;
   delete(id: FilterOptions): Promise<FilterOptions>;
 }
 
