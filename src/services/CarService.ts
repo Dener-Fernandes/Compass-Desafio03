@@ -34,7 +34,6 @@ class CarService {
     return car;
   }
 
-  // Error in this method. Not counting all documents with the search queries. Also, it does not work if no search query is set.
   async listAllCars(
     data: ISearchQuery,
     offset?: number,
