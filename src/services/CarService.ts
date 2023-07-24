@@ -41,8 +41,9 @@ class CarService {
     limit?: number,
     currentUrl?: string,
   ): Promise<ICarResponse> {
-    let query: Record<string, string> = {};
     let vetorQuery = [];
+    offset = Number(offset);
+    limit = Number(limit);
 
     for (let [key, value] of Object.entries(data)) {
       if (value) {
@@ -63,9 +64,11 @@ class CarService {
       offset,
       limit,
     );
-    const total = carsList.length;
+
+    const total = Number(await this.countCars());
 
     const next = offset + limit;
+
     const nextUrl =
       next < total ? `${currentUrl}?limit=${limit}&offset=${next}` : null;
 
@@ -73,8 +76,6 @@ class CarService {
     const previousUrl = previous
       ? `${currentUrl}?limit=${limit}&offset=${previous}`
       : null;
-
-    console.log(nextUrl);
 
     return {
       cars: carsList,
@@ -94,6 +95,12 @@ class CarService {
     }
 
     return car;
+  }
+
+  async countCars(): Promise<FilterOptions> {
+    const carsQuantity = await this.carsRepository.countItems();
+
+    return carsQuantity;
   }
 
   async deleteCarById(id: string): Promise<void> {

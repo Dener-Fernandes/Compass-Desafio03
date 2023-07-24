@@ -7,6 +7,7 @@ import {
   PaginationOption01,
   PaginationOption02,
 } from "../interfaces";
+import { verifyQueryValues } from "../utils/verifyQueryValues";
 
 /* extends IBaseModel é mais uma questão de visibilidade. Serve apenas para falar ao TS
 que T extende uma interface. O código funciona sem esse extends. */
@@ -33,7 +34,7 @@ abstract class DefaultMongoDBRepository<
     limit: PaginationOption02,
   ): Promise<IWithId<T>[]> {
     const list = await this.model
-      .find({ $or: query })
+      .find(verifyQueryValues(query) ? { $or: query } : {})
       .sort({ _id: -1 })
       .skip(offset)
       .limit(limit);
