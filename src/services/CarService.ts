@@ -40,13 +40,17 @@ class CarService {
     limit?: number,
     currentUrl?: string,
   ): Promise<ICarResponse> {
-    let vetorQuery = [];
+    let arrayQuery = [];
     offset = Number(offset);
     limit = Number(limit);
 
     for (let [key, value] of Object.entries(data)) {
       if (value) {
-        vetorQuery.push({ [key]: value });
+        if (key == "accessories") {
+          arrayQuery.push({ "accessories.description": value });
+        } else {
+          arrayQuery.push({ [key]: value });
+        }
       }
     }
 
@@ -59,7 +63,7 @@ class CarService {
     }
 
     const carsList = await this.carsRepository.listAll(
-      vetorQuery,
+      arrayQuery,
       offset,
       limit,
     );
