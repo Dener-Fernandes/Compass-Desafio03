@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --runInBand --detectOpenHandles",
+    "test": "jest --coverage --runInBand --detectOpenHandles",
     "start": "tsnd --respawn --transpile-only --ignore-watch node_modules ./src/server.ts"
   },
   "keywords": [],
