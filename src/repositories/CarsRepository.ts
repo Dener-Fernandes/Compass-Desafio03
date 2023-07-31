@@ -1,11 +1,10 @@
 import { HydratedDocument } from "mongoose";
 import { ICar } from "../interfaces/ICar";
-import { ICarRepository } from "../interfaces/ICarRepository";
 import { Car } from "../models/Car";
 
 interface CreateCarDTO extends ICar {}
 
-class CarsRepository implements ICarRepository {
+class CarsRepository {
   private static INSTANCE: CarsRepository;
 
   static getInstance(): CarsRepository {
@@ -21,20 +20,27 @@ class CarsRepository implements ICarRepository {
 
     return createdCar;
   }
-  
+
   async getCarById(id: string): Promise<HydratedDocument<ICar> | null> {
     const car = await Car.findById(id);
 
     return car;
   }
-  
-  async listAllCars(query: Object, skip: number, limit: number): Promise<HydratedDocument<ICar>[]> {
+
+  async listAllCars(
+    query: Object,
+    skip: number,
+    limit: number,
+  ): Promise<HydratedDocument<ICar>[]> {
     const cars = await Car.find(query).skip(skip).limit(limit);
 
     return cars;
   }
 
-  async updateCarById(id: string, data: CreateCarDTO): Promise<HydratedDocument<ICar> | null> {
+  async updateCarById(
+    id: string,
+    data: CreateCarDTO,
+  ): Promise<HydratedDocument<ICar> | null> {
     const car = await Car.findByIdAndUpdate(id, data, { new: true });
 
     return car;
@@ -45,7 +51,6 @@ class CarsRepository implements ICarRepository {
 
     return deletedCount;
   }
-  
 }
 
-export { CarsRepository }
+export { CarsRepository };
